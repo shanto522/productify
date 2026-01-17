@@ -1,5 +1,5 @@
-import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import clientPromise from "../../../../../server/lib/mongodb";
 
 export async function GET(request, { params }) {
   const { id } = params;
