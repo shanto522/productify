@@ -101,10 +101,6 @@ export default function LoginForm() {
           )}
           {loading ? "Logging in..." : "Login"}
         </button>
-
-        <p className="text-center text-sm text-gray-400">
-          Demo: <span className="font-semibold">test@example.com / 123456</span>
-        </p>
       </form>
     </div>
   );

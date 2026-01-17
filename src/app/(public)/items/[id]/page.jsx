@@ -12,7 +12,7 @@ export default function ItemDetailsPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/items/${id}`)
+    fetch(`/api/items/${id}`)
       .then((res) => res.json())
       .then((data) => setItem(data))
       .catch((err) => {

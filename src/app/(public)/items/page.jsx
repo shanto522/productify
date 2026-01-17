@@ -2,7 +2,7 @@ import ItemCard from "@/components/items/ItemCard";
 
 async function getItems() {
   try {
-    const res = await fetch("http://localhost:5000/items", {
+    const res = await fetch("/api/items", {
       cache: "no-store", // Always fetch fresh
     });
     return await res.json();

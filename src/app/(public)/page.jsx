@@ -17,7 +17,7 @@ export default function LandingPage() {
   }, [items]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/items")
+    fetch("/api/items")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
