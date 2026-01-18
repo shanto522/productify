@@ -1,42 +1,35 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
+import formatPrice from "@/utils/formatPrice";
 import ItemDetails from "@/components/items/ItemDetails";
-import { toast } from "react-hot-toast";
 
-export default function ItemDetailsPage() {
-  const { id } = useParams();
-  const [item, setItem] = useState(null);
-  const [loading, setLoading] = useState(true);
+async function getItem(id) {
+  if (!ObjectId.isValid(id)) return null;
+  const client = await clientPromise;
+  const db = client.db("productify");
+  const item = await db.collection("items").findOne({ _id: new ObjectId(id) });
+  if (!item) return null;
+  return {
+    ...item,
+    _id: item._id.toString(),
+    createdAt: item.createdAt?.toISOString(),
+  };
+}
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`/api/items/${id}`)
-      .then((res) => res.json())
-      .then((data) => setItem(data))
-      .catch((err) => {
-        console.error(err);
-        toast.error("Failed to fetch item ❌");
-      })
-      .finally(() => setLoading(false));
-  }, [id]);
+export default async function ItemDetailPage({ params }) {
+  // 🟢 unwrap params
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
 
-  if (loading)
+  const item = await getItem(id);
+
+  if (!item) {
     return (
-      <div className="flex justify-center items-center h-[70vh]">
-        <p className="text-gray-500 text-lg animate-pulse">
-          Loading item...
-        </p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <h1 className="text-2xl text-gray-600">Item not found</h1>
       </div>
     );
-
-  if (!item)
-    return (
-      <div className="flex justify-center items-center h-[70vh]">
-        <p className="text-red-500 text-lg">Item not found!</p>
-      </div>
-    );
+  }
 
   return (
     <section className="px-4 py-12 md:py-20 bg-gray-50 min-h-screen">

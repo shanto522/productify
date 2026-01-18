@@ -72,7 +72,7 @@ export default function LandingPage() {
             }}
           >
             {items.slice(0, 5).map((item) => (
-              <div key={item.id} className="relative min-w-full opacity-100">
+              <div key={item._id} className="relative min-w-full opacity-100">
                 {/* Image */}
                 <img
                   src={item.image}
@@ -144,7 +144,7 @@ export default function LandingPage() {
               ))
             : items.slice(0, 6).map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition"
                 >
                   <img
@@ -160,7 +160,7 @@ export default function LandingPage() {
                       {item.description}
                     </p>
                     <Link
-                      href={`/items/${item.id}`}
+                      href={`/items/${item._id}`}
                       className="inline-block text-indigo-600 font-semibold hover:underline"
                     >
                       View Details →
