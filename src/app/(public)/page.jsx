@@ -1,5 +1,6 @@
 "use client";
 
+import ItemCard from "@/components/items/ItemCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -143,30 +144,7 @@ export default function LandingPage() {
                 />
               ))
             : items.slice(0, 6).map((item) => (
-                <div
-                  key={item._id}
-                  className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition"
-                >
-                  <img
-                    src={item.image || "/images/placeholder.png"}
-                    alt={item.name}
-                    className="h-64 w-full object-cover"
-                  />
-                  <div className="p-6 space-y-4">
-                    <h3 className="text-xl font-bold text-gray-800">
-                      {item.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm line-clamp-2">
-                      {item.description}
-                    </p>
-                    <Link
-                      href={`/items/${item._id}`}
-                      className="inline-block text-indigo-600 font-semibold hover:underline"
-                    >
-                      View Details →
-                    </Link>
-                  </div>
-                </div>
+                 <ItemCard key={item._id} item={item} />
               ))}
         </div>
       </section>

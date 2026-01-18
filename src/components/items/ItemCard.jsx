@@ -11,9 +11,9 @@ export default function ItemCard({ item }) {
         <h3 className="text-xl font-bold">{item.name}</h3>
         <p className="text-gray-600 text-sm mt-1 line-clamp-2">{item.description || "No description"}</p>
         <div className="flex justify-between mt-4">
-          <span className="text-indigo-600 font-bold">{formatPrice(item.price)}</span>
+          <span className="text-indigo-600 font-extrabold text-xl">{formatPrice(item.price)}</span>
           <Link href={`/items/${item._id}`}>
-            <span className="text-sm text-gray-400 hover:text-indigo-600">View Details →</span>
+            <span className="text-lg font-semibold hover:text-indigo-600">View Details →</span>
           </Link>
         </div>
       </div>
