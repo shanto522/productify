@@ -2,7 +2,10 @@ import ItemCard from "@/components/items/ItemCard";
 
 async function getItems() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    // absolute URL for server-side fetch
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    if (!baseUrl) throw new Error("NEXT_PUBLIC_BASE_URL not set");
+
     const res = await fetch(`${baseUrl}/api/items`, { cache: "no-store" });
     if (!res.ok) {
       console.error("Fetch failed status:", res.status);
@@ -15,6 +18,7 @@ async function getItems() {
     return [];
   }
 }
+
 export default async function ItemsPage() {
   const items = await getItems();
 
@@ -25,7 +29,9 @@ export default async function ItemsPage() {
         {items.length > 0 ? (
           items.map((item) => <ItemCard key={item._id} item={item} />)
         ) : (
-          <p className="col-span-full text-center text-gray-500 text-lg">No items available</p>
+          <p className="col-span-full text-center text-gray-500 text-lg">
+            No items available
+          </p>
         )}
       </div>
     </div>
