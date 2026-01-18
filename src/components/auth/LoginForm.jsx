@@ -3,14 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 const MOCK_EMAIL = "test@example.com";
 const MOCK_PASSWORD = "123456";
 
 export default function LoginForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -39,7 +39,7 @@ export default function LoginForm() {
   };
 
   return (
-<div className="min-h-screen flex items-center justify-center px-4 ">
+    <div className="min-h-screen flex items-center justify-center px-4 ">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-gray-200 space-y-6"
@@ -60,14 +60,26 @@ export default function LoginForm() {
           required
         />
 
-        {/* Password */}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition shadow-sm hover:shadow-md"
-          required
-        />
+        {/* Password with eye icon */}
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            className="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition shadow-sm hover:shadow-md pr-12"
+            required
+          />
+          <span
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-indigo-600"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <AiFillEye size={20} />
+            ) : (
+              <AiFillEyeInvisible size={20} />
+            )}
+          </span>
+        </div>
 
         <button
           type="submit"
