@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-// Mock credentials
 const MOCK_EMAIL = "test@example.com";
 const MOCK_PASSWORD = "123456";
 
@@ -36,7 +35,7 @@ export default function LoginForm() {
         toast.error("Invalid email or password");
       }
       setLoading(false);
-    }, 500); // simulate network delay
+    }, 500);
   };
 
   return (
